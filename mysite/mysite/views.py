@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.http.response import Http404
-from django.http.request import HttpRequest
 
 def hello(request):
     return HttpResponse("Hello World!")
@@ -42,7 +41,7 @@ def hours_ahead(request, offset):
 
 #view function to display all request meta data keys and values in a table
 def display_meta(request):
-    metadata = request.Meta
+    metadata = request.META
     html = []
     for k in metadata:
         html.append("<tr><td>%s</td><td>%s</td></tr>" % (k, metadata[k]))
