@@ -68,3 +68,7 @@ def contact(request):
     else:
         form = ContactForm()
     return render(request, 'contact_form.html', {'form':form})
+
+def contact_ty(request):
+    return render(request, 'contact_ty.html')
+    
