@@ -39,3 +39,11 @@ def hours_ahead(request, offset):
     return render(request, 'hours_ahead.html', {'offset': offset,'next_time':dt})
     #html = "<html><body> In %s hour(s), it will be %s </body></html>" % (offset, dt) 
     #return HttpResponse(html)
+
+#view function to display all request meta data keys and values in a table
+def display_meta(request):
+    metadata = request.Meta
+    html = []
+    for k in metadata:
+        html.append("<tr><td>%s</td><td>%s</td></tr>" % (k, metadata[k]))
+    return HttpResponse("<table>%s</table>" % "\n".join(html))
