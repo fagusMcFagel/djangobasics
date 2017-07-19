@@ -1,5 +1,8 @@
-from django.http import HttpResponse
-from django.http.response import Http404
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+import datetime
+from mysite.forms import ContactForm
+from django.core.mail import send_mail, get_connection
 
 def hello(request):
     return HttpResponse("Hello World!")
@@ -12,8 +15,8 @@ def hello(request):
 #import datetime
 
 #imports needed with shortcut
-from django.shortcuts import render
-import datetime
+#from django.shortcuts import render
+#import datetime
 def current_datetime(request):
     now = datetime.datetime.now()
     
@@ -46,3 +49,22 @@ def display_meta(request):
     for k in metadata:
         html.append("<tr><td>%s</td><td>%s</td></tr>" % (k, metadata[k]))
     return HttpResponse("<table>%s</table>" % "\n".join(html))
+
+#function to handle (contact) form submissions (Chapter "Tying Forms to Views")
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            con = get_connection('django.core.mail.backends.console.EmailBackend')
+            send_mail(
+                cd['subject'],
+                cd['message'],
+                cd.get('email', 'noreply@example.com'),
+                ['siteowner@example.com'],
+                connection = con
+            )
+            return HttpResponseRedirect('/contact/thanks/')
+        else:
+            form = ContactForm()
+    return render(request, 'contact_form.html', {'form':form})
