@@ -21,13 +21,13 @@ def current_datetime(request):
     now = datetime.datetime.now()
     
     #whole process in detail
-    #t = get_template('current_datetime.html')
+    #t = get_template('current_datetime.djhtml')
     #html = t.render({'current_date':now})
     #return HttpResponse(html)
     
     #shortcut with render(Request, Template, Context)
-    #possible use of subdirectories, e.g. 'subdirectory/current_datetime.html'
-    return render(request, 'current_datetime.html', {'current_date':now})
+    #possible use of subdirectories, e.g. 'subdirectory/current_datetime.djhtml'
+    return render(request, 'current_datetime.djhtml', {'current_date':now})
 ### end of example
 
 def hours_ahead(request, offset):
@@ -38,7 +38,7 @@ def hours_ahead(request, offset):
         raise Http404()
     dt = datetime.datetime.now() + datetime.timedelta(hours=offset)
     
-    return render(request, 'hours_ahead.html', {'offset': offset,'next_time':dt})
+    return render(request, 'hours_ahead.djhtml', {'offset': offset,'next_time':dt})
     #html = "<html><body> In %s hour(s), it will be %s </body></html>" % (offset, dt) 
     #return HttpResponse(html)
 
@@ -67,8 +67,8 @@ def contact(request):
             return HttpResponseRedirect('/contact/thanks/')
     else:
         form = ContactForm()
-    return render(request, 'contact_form.html', {'form':form})
+    return render(request, 'contact_form.djhtml', {'form':form})
 
 def contact_ty(request):
-    return render(request, 'contact_ty.html')
+    return render(request, 'contact_ty.djhtml')
     

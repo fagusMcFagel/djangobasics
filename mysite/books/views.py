@@ -5,7 +5,7 @@ from books.models import Book
 
 ## NOT NEEDED DUE TO UPDATED VIEW search(request) ##
 #def search_form(request):
-#    return render(request, 'books/search_form.html')
+#    return render(request, 'books/search_form.djhtml')
 
 #===============================================================================
 # earlier version with error as boolean -> unspecific error messages
@@ -19,9 +19,9 @@ from books.models import Book
 #             error=True
 #         else:
 #             books = Book.objects.filter(title__icontains=q)
-#             return render(request, 'books/search_results.html', 
+#             return render(request, 'books/search_results.djhtml', 
 #                           {'books': books, 'query': q})
-#     return render(request, 'books/search_form.html', {'errors': errors})
+#     return render(request, 'books/search_form.djhtml', {'errors': errors})
 #===============================================================================
 
 def search(request):
@@ -34,6 +34,6 @@ def search(request):
             errors.append('Please enter at most 20 characters.')
         else:
             books = Book.objects.filter(title__icontains=q)
-            return render(request, 'books/search_results.html', 
+            return render(request, 'books/search_results.djhtml', 
                           {'books': books, 'query': q})
-    return render(request, 'books/search_form.html', {'errors': errors})
+    return render(request, 'books/search_form.djhtml', {'errors': errors})
