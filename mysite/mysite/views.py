@@ -66,7 +66,9 @@ def contact(request):
             )
             return HttpResponseRedirect('/contact/thanks/')
     else:
-        form = ContactForm()
+        form = ContactForm(
+            initial={'subject': 'I love your site!'}
+        )
     return render(request, 'contact_form.djhtml', {'form':form})
 
 def contact_ty(request):
